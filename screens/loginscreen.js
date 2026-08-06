@@ -12,10 +12,18 @@ export default function LoginScreen({ navigation }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const [Text, setText] = useState('');
+    const [subtext, setsubtext] = useState('');
+
     const handleLogin = () => {
         // Later we'll validate and connect to backend
         navigation.replace('Dashboard');
     };
+
+    const handleSubmit = () => {
+        setsubtext(Text);
+        setText('');
+    }
 
     return (
         <View style={styles.container}>
@@ -41,6 +49,14 @@ export default function LoginScreen({ navigation }) {
             />
 
             <TextInput
+                placeholder="Enter something "
+                placeholderTextColor="#888"
+                style={styles.input}
+                value={Text}
+                onChangeText={(Text => setText(Text))}
+            />
+
+            <TextInput
                 placeholder="Password"
                 placeholderTextColor="#888"
                 secureTextEntry
@@ -57,7 +73,16 @@ export default function LoginScreen({ navigation }) {
                     LOGIN
                 </Text>
             </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.loginBtn}
+                onPress={handleSubmit}
+            >
+                <Text style={styles.loginText}>
+                    show result
+                </Text>
 
+                {subtext ? (<Text> result : {Text}</Text>) : null}
+            </TouchableOpacity>
             <TouchableOpacity>
                 <Text style={styles.forgot}>
                     Forgot Password?
